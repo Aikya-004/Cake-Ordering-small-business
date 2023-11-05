@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+    <style>
+        /* Reset some default browser styles */
+        body,
+        h3 {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Basic page styles */
+        body {
+            background-color: grey;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Header styles */
+        h3 {
+            color: #fff;
+        }
+
+        /* Shopping cart container */
+        .row {
+            display: flex;
+            justify-content: center;
+        }
+
+        .col-12 {
+            max-width: 600px;
+            background-color: #333;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+        }
+
+        /* CSS for the cart content */
+        .cart-content {
+            border: 1px solid #fff;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #fff;
+        }
+
+        .cart-content div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+
+        /* Style the item name */
+        .cart-content div span {
+            flex-grow: 1;
+        }
+
+        /* Style the quantity buttons */
+        .cart-content div button {
+            background: #f49417;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Add spacing between buttons */
+        .cart-content div button+button {
+            margin-left: 10px;
+        }
+
+        /* Total price styles */
+        #totalPrice {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        /* Back to Cake Menu link */
+        a {
+            display: block;
+            margin-top: 20px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* Footer styles */
+        .footer1 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            /* padding: 0; */
+            color: #fff;
+
+        }
+
+        .footer-links li {
+
+            display: inline;
+            margin-right: 10px;
+            margin-top: 10px;
+            color: #fff;
+            text-align: center;
+
+        }
+
+        /* Add hover effect to links */
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="row mt-4">
+        <div class="col-12">
+            <h3>Shopping Cart</h3>
+            <br>
+            <div class="cart-content" id="cartContent">
+                <!-- Cart content goes here -->
+            </div>
+        </div>
+    </div>
+    <p id="totalPrice">Total Price: $0.00</p>
+
+    <a href="menu.html">Back to Cake Menu</a>
+    <br>
+    <footer class="footer1">
+        <div class="footer-links">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <center>
+            <p>&copy; 2023 DesignYourSlice | All Rights Reserved.</p>
+        </center>
+    </footer>
+
+    <script>
+        // JavaScript code to display cart items and calculate the total price
+
+        // Retrieve cart items from local storage
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        function displayCartItems() {
+            const cartContent = document.getElementById("cartContent");
+            cartContent.innerHTML = "";
+
+            cart.forEach(item => {
+                const cartItem = document.createElement("div");
+                cartItem.innerHTML = `
+                    <span>${item.name} - $${item.price} x ${item.quantity}</span>
+                    <button class="btn btn-sm btn-danger" onclick="removeFromCart('${item.name}', ${item.price})">-</button>
+                    <button class="btn btn-sm btn-success" onclick="addToCart('${item.name}', ${item.price})">+</button>
+                `;
+                cartContent.appendChild(cartItem);
+            });
+        }
+        function addToCart(name, price) {
+            let existingItem = cart.find(item => item.name === name);
+
+            if (existingItem) {
+                if (!isNaN(existingItem.quantity)) {
+                    existingItem.quantity += 1;
+                } else {
+                    existingItem.quantity = 1;
+                }
+            } else {
+                existingItem = { name, price, quantity: 1 };
+                cart.push(existingItem);
+            }
+
+            updateCart();
+        }
+
+
+
+        function removeFromCart(name, price) {
+            let existingItem = cart.find(item => item.name === name);
+
+            if (existingItem) {
+                if (existingItem.quantity > 1) {
+                    existingItem.quantity -= 1;
+                } else {
+                    cart = cart.filter(item => item.name !== name);
+                }
+            }
+
+            updateCart();
+        }
+
+        function updateCart() {
+            localStorage.setItem("cart", JSON.stringify(cart));
+            displayCartItems();
+            updateTotalPrice();
+        }
+
+        function updateTotalPrice() {
+            const totalPrice = document.getElementById("totalPrice");
+            const total = cart.reduce((acc, item) => acc + parseFloat(item.price) * item.quantity, 0);
+            totalPrice.textContent = `Total Price: $${total.toFixed(2)}`;
+        }
+
+        displayCartItems();
+
+        // You can add code to clear the cart or proceed with checkout here.
+    </script>
+</body>
+
+</html>

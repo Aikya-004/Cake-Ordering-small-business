@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customized Cake Menu</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="cake.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital@1&display=swap" rel="stylesheet">
+    <style>
+        .header2 {
+            position: sticky;
+            top: 0;
+            left: 0;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80%;
+            background: var(--background-color);
+            /* padding: 1.7rem 0; */
+            transition: 0.4s ease;
+            z-index: 1;
+        }
+
+        .header2 .navbar ul {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            text-align: center;
+            justify-content: center;
+            position: relative;
+            padding: 5%;
+            color: #fff;
+        }
+
+        .header2 .navbar a {
+            color: #fff;
+        }
+
+        .header2 {
+            justify-content: space-between;
+            /* padding: 1.7rem 0; */
+        }
+
+        .header2 .logo_two {
+            display: flex;
+            align-items: center;
+            /* gap: 10px; */
+            margin-left: 10%;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body id="menu">
+    <div class="cart-icon" id="cartIcon">
+        <i class="fas fa-shopping-cart"></i>
+        <!-- <span id="cartCount"></span> -->
+    </div>
+    <header class="header2">
+        <div class="logo_two">
+            <i class='bx bxs-cake'></i>
+            <h2 style="color: #fff;">DesignYourSlice</h2>
+        </div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="menu.html">Menu</a></li>
+
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container mt-5">
+        <!-- Search Bar -->
+        <div class="row">
+            <div class="col-12 mb-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for cakes..." id="searchInput">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button" id="searchButton">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Options -->
+        <div class="row">
+            <div class="col-12 mb-4">
+                <label for="filter">Filter by Category:</label>
+                <select class="form-control" id="filter">
+                    <option value="all">All</option>
+                    <option value="kids">Kids Cakes</option>
+                    <option value="anniversary">Anniversary Cakes</option>
+                    <option value="flavours">Flavours</option>
+                    <option value="desserts">Desserts</option>
+                    <option value="birthday">Birthday Cakes</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Menu Items -->
+        <div class="row" id="menuContainer">
+            <!-- Menu items will be dynamically added here -->
+        </div>
+
+        <!-- Cart Option -->
+
+
+    </div>
+    <footer class="footer1">
+        <div class="footer-links">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="menu.html">Menu</a></li>
+
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <p>&copy; 2023 DesignYourSlice|All Rights Reserved.</p>
+    </footer>
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // JavaScript code to navigate to the cart page when the cart icon is clicked
+        document.getElementById("cartIcon").addEventListener("click", function () {
+            // Redirect to the cart page
+            window.location.href = "cart.html"; // Replace with the correct URL for your cart page
+        });
+
+        // Sample menu items data (replace with actual data)
+        const menuItems = [
+            { name: "Watermelon", price: 20, category: "kids", image: "/img/kid1.jpeg" },
+            { name: "Family", price: 20, category: "kids", image: "/img/kid2.jpg" },
+            { name: "Aquarium", price: 20, category: "kids", image: "/img/kid4.jpeg" },
+            { name: "Cars", price: 20, category: "kids", image: "/img/kid5.jpg" },
+            { name: "Mickey mouse", price: 20, category: "kids", image: "/img/kid3.jpg" },
+            { name: "Unicorn", price: 20, category: "kids", image: "/img/kid6.jpg" },
+            { name: "Love Story Cake", price: 25, category: "anniversary", image: "/img/an1.jpg" },
+            { name: "Love birds", price: 25, category: "anniversary", image: "/img/an2.jpg" },
+            { name: "Celebrating Love", price: 25, category: "anniversary", image: "/img/an3.jpg" },
+            { name: "Diamond Anniversary Cake", price: 25, category: "anniversary", image: "/img/an4.jpg" },
+            { name: "Golden Years Delight", price: 25, category: "anniversary", image: "/img/an5.jpg" },
+            { name: "Anniversary Affection", price: 25, category: "anniversary", image: "/img/an6.png" },
+            { name: "Black Forest", price: 30, category: "flavours", image: "/img/fla1.jpg" },
+            { name: "Red Velvet", price: 30, category: "flavours", image: "/img/fla2.jpg" },
+            { name: "ButterScotch", price: 30, category: "flavours", image: "/img/fla3.jpg" },
+            { name: "Rasmalai ", price: 30, category: "flavours", image: "/img/fla4.jpg" },
+            { name: "Chocolate Truffle", price: 30, category: "flavours", image: "/img/fla5.jpg" },
+            { name: "Strawberry", price: 30, category: "flavours", image: "/img/fla6.jpg" },
+            { name: "Apricot", price: 35, category: "desserts", image: "/img/des1.jpg" },
+            { name: "Gulab Jamun", price: 35, category: "desserts", image: "/img/des2.jpeg" },
+            { name: "Ice Cream", price: 35, category: "desserts", image: "/img/des2.jpg" },
+            { name: "Banana Pudding", price: 35, category: "desserts", image: "/img/des4.jpg" },
+            { name: "Custard", price: 35, category: "desserts", image: "/img/des5.jpg" },
+            { name: "Cobblers", price: 35, category: "desserts", image: "/img/des6.jpeg" },
+            { name: "Heavenly Confections", price: 40, category: "birthday", image: "/img/bir1.jpg" },
+            { name: "Whimsical Cakes", price: 40, category: "birthday" , image: "/img/bir2.jpeg"},
+            { name: "Cake Elegance", price: 40, category: "birthday" , image: "/img/bir3.jpeg"},
+            { name: "Frosted Fantasies", price: 40, category: "birthday", image: "/img/bir4.jpeg" },
+            { name: "Rainbow Delights", price: 40, category: "birthday", image: "/img/bir5.png" },
+            { name: "Velvet Dreams", price: 40, category: "birthday", image: "/img/bir6.jpg" },
+
+
+
+
+            // Add more menu items here
+        ];
+
+       
+        document.getElementById("filter").addEventListener("change", function () {
+            const selectedCategory = document.querySelector("#filter").value;
+            displayMenuItems(selectedCategory);
+        });
+
+        // Function to display menu items based on filter and search
+        function displayMenuItems() {
+            const searchInput = document.querySelector("#searchInput").value.toLowerCase();
+            const categoryFilter = document.querySelector("#filter").value;
+
+            const menuContainer = document.getElementById("menuContainer");
+            menuContainer.innerHTML = ""; // Clear existing menu items
+
+            menuItems.forEach(item => {
+                if (
+                    (searchInput === "" || item.name.toLowerCase().includes(searchInput)) &&
+                    (categoryFilter === "all" || item.category === categoryFilter)
+                ) {
+                    const card = document.createElement("div");
+                    card.className = "col-md-4 col-sm-6 mb-4";
+                    card.innerHTML = `
+                        <div class="card">
+                            <img src="${item.image}" class="card-img-top" alt="Cake Image">
+                            <div class="card-body">
+                                <h5 class="card-title">${item.name}</h5>
+                                <p class="card-text">Price: $${item.price}</p>
+                                <button class="btn btn-success" onclick="addToCart('${item.name}', ${item.price})">Add to Cart</button>
+                            </div>
+                        </div>
+                    `;
+                    menuContainer.appendChild(card);
+                }
+            });
+            updateCartCount();
+        }
+
+        document.getElementById("searchButton").addEventListener("click", displayMenuItems);
+        document.getElementById("filter").addEventListener("change", displayMenuItems);
+
+
+
+
+        // Function to add an item to the cart
+        const cart = [];
+        
+        function addToCart(name, price) {
+            // You can keep this part of the code to add the item to the cart storage
+            const cartItem = { name, price };
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart.push(cartItem);
+            localStorage.setItem("cart", JSON.stringify(cart));
+
+            // Now, since you want the button to be permanently disabled after clicking
+            // Remove the onclick event handler and prevent further clicks
+            const addToCartButton = document.getElementById("addToCartButton");
+            addToCartButton.disabled = true;
+        }
+
+
+        function updateCartCount() {
+            const cartCount = document.getElementById("cartCount");
+            const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+            cartCount.textContent = totalItems;
+        }
+
+        // Function to update the cart content
+        function updateCart() {
+            const cartContent = document.getElementById("cartContent");
+            cartContent.innerHTML = ""; // Clear existing cart items
+
+            cart.forEach(item => {
+                const cartItem = document.createElement("div");
+                cartItem.innerHTML = `
+                    <span>${item.name} - $${item.price} x ${item.quantity}</span>
+                    <button class="btn btn-sm btn-danger" onclick="removeFromCart('${item.name}', ${item.price})">-</button>
+                    <button class="btn btn-sm btn-success" onclick="addToCart('${item.name}', ${item.price})">+</button>
+                `;
+                cartContent.appendChild(cartItem);
+            });
+
+            // Update the total price
+            updateTotalPrice();
+        }
+
+        function removeFromCart(name, price) {
+            const existingItem = cart.find(item => item.name === name);
+
+            if (existingItem) {
+                if (existingItem.quantity > 1) {
+                    existingItem.quantity -= 1;
+                } else {
+                    cart.splice(cart.indexOf(existingItem), 1);
+                }
+            }
+
+            updateCart();
+        }
+
+        // Function to update the total price
+        function updateTotalPrice() {
+            const totalPrice = document.getElementById("totalPrice");
+            const total = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+            totalPrice.textContent = `Total Price: $${total}`;
+        }
+
+        // Search button click event
+        document.getElementById("searchButton").addEventListener("click", function () {
+            const searchInput = document.querySelector("#searchInput").value.toLowerCase();
+            const categoryFilter = document.querySelector("#filter").value;
+
+            // Filter items based on search input and selected category
+            const filteredItems = menuItems.filter(item => {
+                return (item.name.toLowerCase().includes(searchInput) && (categoryFilter === "all" || item.category === categoryFilter));
+            });
+
+            // Display filtered items
+            displayMenuItems(categoryFilter);
+        });
+
+        // Initial display of all items
+        displayMenuItems("all");
+    </script>
+</body>
+
+</html>
